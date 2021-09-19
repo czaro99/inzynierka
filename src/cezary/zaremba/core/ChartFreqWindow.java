@@ -7,14 +7,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.text.NumberFormat;
 
-public class Window extends JFrame {
+public class ChartFreqWindow extends JFrame {
 
-    private NumberFormat numberFormat;
-    private final XYChart attenuationChart = new XYChart();
+    private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
 
-    public Window() {
+    public ChartFreqWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
@@ -31,7 +29,7 @@ public class Window extends JFrame {
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelpathElevationAngle = new JLabel("Path elevation angle:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelpolarizationTiltAngle = new JLabel("Path elevation angle:");
+        JLabel labelpolarizationTiltAngle = new JLabel("Polarization tilt angle:");
         JSpinner spinnerfreqStart = new JSpinner(modelFreqStart);
         JLabel labelfreqStart = new JLabel("Start frequency:");
         JSpinner spinnerfreqStop = new JSpinner(modelFreqStop);
@@ -91,10 +89,19 @@ public class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chartPanel.setChart(
-                        attenuationChart.runGraph("Rain attenuation", "Frequency [GHz]", "Attenuation [dB/km]"));
+                        attenuationChart.runGraph("Rain attenuation", "Frequency [GHz]", "Attenuation [dB/km]", "Freq"));
             }
         }), BorderLayout.SOUTH);
 
+        JButton menuButton = new JButton(new AbstractAction("Back to menu") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MenuWindow menuWindow = new MenuWindow();
+                dispose();
+            }
+        });
+
+        add(menuButton, BorderLayout.AFTER_LINE_ENDS);
 
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

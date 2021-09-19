@@ -1,6 +1,6 @@
 package cezary.zaremba.core;
 
-public class Calculation {
+public class CoefficientsCalculation {
 
     public double calculateKh(double freq){
         double[] a = {-5.33980, -0.35351, -0.23789, -0.94158};
