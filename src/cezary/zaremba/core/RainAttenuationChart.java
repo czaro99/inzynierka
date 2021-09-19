@@ -18,7 +18,11 @@ public class RainAttenuationChart {
     private double rainRateStart = 0.1;
     private double rainRateStop = 10;
     private double pathElevationAngle = 10;
+    private double pathElevationAngleStart = 1;
+    private double pathElevationAngleStop = 10;
     private double polarizationTiltAngle = 45;
+    private double polarizationTiltAngleStart = 0;
+    private double polarizationTiltAngleStop = 90;
     private double freq = 1;
     private double freqStart = 1;
     private double freqStop = 300;
@@ -62,6 +66,20 @@ public class RainAttenuationChart {
                     attenuationSeries.add(i , attenuation);
                 }
                 break;
+            case "Elevation":
+                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i+=0.1) {
+                    double[] coefficients = coefficientsCalculation.calculateCoefficients(freq,i,polarizationTiltAngle);
+                    double attenuation = coefficients[0]*Math.pow(rainRate,coefficients[1]);
+                    attenuationSeries.add(i , attenuation);
+                }
+                break;
+            case "Polarization":
+                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i+=0.1) {
+                    double[] coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,i);
+                    double attenuation = coefficients[0]*Math.pow(rainRate,coefficients[1]);
+                    attenuationSeries.add(i , attenuation);
+                }
+                break;
                 default:
                 break;
         }
@@ -96,5 +114,22 @@ public class RainAttenuationChart {
 
     public void setFreq(double freq) {
         this.freq = freq;
+    }
+
+
+    public void setPathElevationAngleStart(double pathElevationAngleStart) {
+        this.pathElevationAngleStart = pathElevationAngleStart;
+    }
+
+    public void setPathElevationAngleStop(double pathElevationAngleStop) {
+        this.pathElevationAngleStop = pathElevationAngleStop;
+    }
+
+    public void setPolarizationTiltAngleStart(double polarizationTiltAngleStart) {
+        this.polarizationTiltAngleStart = polarizationTiltAngleStart;
+    }
+
+    public void setPolarizationTiltAngleStop(double polarizationTiltAngleStop) {
+        this.polarizationTiltAngleStop = polarizationTiltAngleStop;
     }
 }
