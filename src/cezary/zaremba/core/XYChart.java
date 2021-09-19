@@ -17,6 +17,11 @@ public class XYChart {
     private double rainRate = 5;
     private double pathElevationAngle = 10;
     private double polarizationTiltAngle = 45;
+
+    public double getRainRate() {
+        return rainRate;
+    }
+
     private double freqStart = 1;
     private double freqStop = 300;
 
@@ -45,7 +50,7 @@ public class XYChart {
 
 
 
-        for (double i = freqStart; i <= freqStop; i++) {
+        for (double i = freqStart; i <= freqStop; i+=0.1) {
 
             double[] coefficients = calculation.calculateCoefficients(i,pathElevationAngle,polarizationTiltAngle);
 
