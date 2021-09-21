@@ -1,6 +1,7 @@
 package cezary.zaremba;
 
-import cezary.zaremba.core.MenuWindow;
+import cezary.zaremba.calculation.CoefficientsCalculation;
+import cezary.zaremba.windows.MenuWindow;
 
 import java.awt.*;
 

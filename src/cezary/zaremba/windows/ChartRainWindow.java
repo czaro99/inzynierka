@@ -1,5 +1,6 @@
-package cezary.zaremba.core;
+package cezary.zaremba.windows;
 
+import cezary.zaremba.calculation.RainAttenuationChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -19,11 +20,11 @@ public class ChartRainWindow extends JFrame {
         chartPanel.setMouseWheelEnabled(true);
 
         JPanel p1 = new JPanel();
-        SpinnerModel modelFreq = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
-        SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
+        SpinnerModel modelFreq = new SpinnerNumberModel(10, 0.1, 1000, 0.1);
+        SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(30, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelRainStart = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
-        SpinnerModel modelRainStop = new SpinnerNumberModel(10, 0.1, 1000, 0.1);
+        SpinnerModel modelRainStop = new SpinnerNumberModel(100, 0.1, 1000, 0.1);
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Frequency [GHz]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);

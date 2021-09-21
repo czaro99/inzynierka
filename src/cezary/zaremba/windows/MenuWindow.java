@@ -1,4 +1,9 @@
-package cezary.zaremba.core;
+package cezary.zaremba.windows;
+
+import cezary.zaremba.windows.ChartElevationWindow;
+import cezary.zaremba.windows.ChartFreqWindow;
+import cezary.zaremba.windows.ChartPolarizationWindow;
+import cezary.zaremba.windows.ChartRainWindow;
 
 import javax.swing.*;
 import java.awt.*;

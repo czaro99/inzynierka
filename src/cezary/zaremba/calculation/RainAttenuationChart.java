@@ -1,5 +1,6 @@
-package cezary.zaremba.core;
+package cezary.zaremba.calculation;
 
+import cezary.zaremba.model.Coefficients;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -54,29 +55,29 @@ public class RainAttenuationChart {
         switch (type){
             case "Freq":
                 for (double i = freqStart; i <= freqStop; i+=0.1) {
-                    double[] coefficients = coefficientsCalculation.calculateCoefficients(i,pathElevationAngle,polarizationTiltAngle);
-                    double attenuation = coefficients[0]*Math.pow(rainRate,coefficients[1]);
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i,pathElevationAngle,polarizationTiltAngle);
+                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
                     attenuationSeries.add(i , attenuation);
                 }
                 break;
             case "Rain rate":
                 for (double i = rainRateStart; i <= rainRateStop; i+=0.1) {
-                    double[] coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,polarizationTiltAngle);
-                    double attenuation = coefficients[0]*Math.pow(i,coefficients[1]);
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,polarizationTiltAngle);
+                    double attenuation = coefficients.getK()*Math.pow(i,coefficients.getAlfa());
                     attenuationSeries.add(i , attenuation);
                 }
                 break;
             case "Elevation":
                 for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i+=0.1) {
-                    double[] coefficients = coefficientsCalculation.calculateCoefficients(freq,i,polarizationTiltAngle);
-                    double attenuation = coefficients[0]*Math.pow(rainRate,coefficients[1]);
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,i,polarizationTiltAngle);
+                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
                     attenuationSeries.add(i , attenuation);
                 }
                 break;
             case "Polarization":
                 for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i+=0.1) {
-                    double[] coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,i);
-                    double attenuation = coefficients[0]*Math.pow(rainRate,coefficients[1]);
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,i);
+                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
                     attenuationSeries.add(i , attenuation);
                 }
                 break;

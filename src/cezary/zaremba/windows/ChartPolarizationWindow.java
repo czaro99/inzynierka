@@ -1,5 +1,6 @@
-package cezary.zaremba.core;
+package cezary.zaremba.windows;
 
+import cezary.zaremba.calculation.RainAttenuationChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
