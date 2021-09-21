@@ -25,15 +25,15 @@ public class ChartFreqWindow extends JFrame {
         SpinnerModel modelFreqStart = new SpinnerNumberModel(1, 1, 1000, 0.1);
         SpinnerModel modelFreqStop = new SpinnerNumberModel(300, 1, 1000, 0.1);
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Rain rate:");
+        JLabel labelRainRate = new JLabel("Rain rate [mm/h]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelpathElevationAngle = new JLabel("Path elevation angle:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
         JLabel labelpolarizationTiltAngle = new JLabel("Polarization tilt angle:");
         JSpinner spinnerfreqStart = new JSpinner(modelFreqStart);
-        JLabel labelfreqStart = new JLabel("Start frequency:");
+        JLabel labelfreqStart = new JLabel("Start frequency [GHz]:");
         JSpinner spinnerfreqStop = new JSpinner(modelFreqStop);
-        JLabel labelfreqStop = new JLabel("Stop frequency:");
+        JLabel labelfreqStop = new JLabel("Stop frequency [GHz]:");
         p1.add(labelRainRate);
         p1.add(spinnerRainRate);
         p1.add(labelpathElevationAngle);

@@ -25,9 +25,9 @@ public class ChartPolarizationWindow extends JFrame {
         SpinnerModel modelPolarizationTiltAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
         JSpinner spinnerFreq = new JSpinner(modelFreq);
-        JLabel labelFreq = new JLabel("Frequency:");
+        JLabel labelFreq = new JLabel("Frequency [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Rain rate:");
+        JLabel labelRainRate = new JLabel("Rain rate [mm/h]:");
         JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelPathElevationAngle = new JLabel("Path elevation angle:");
         JSpinner spinnerPolarizationTiltAngleStart = new JSpinner(modelPolarizationTiltAngleStart);
