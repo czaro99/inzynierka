@@ -1,19 +1,18 @@
 package cezary.zaremba.windows;
 
 import cezary.zaremba.calculation.RainAttenuationChart;
-import cezary.zaremba.calculation.RainAttenuationRateChart;
+import cezary.zaremba.calculation.RainAttenuationDataset;
+import cezary.zaremba.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class ChartElevationAttenuationWindow extends JFrame {
 
-    private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
+    private final RainAttenuationDataset attenuationDataset = new RainAttenuationDataset();
 
     public ChartElevationAttenuationWindow() {
         super("Projekt inżynierski");
@@ -55,29 +54,29 @@ public class ChartElevationAttenuationWindow extends JFrame {
 
         modelRainLayerLength.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainLayerLength.getValue().toString());
-            attenuationChart.setRainLayerLength(val);
+            attenuationDataset.setRainLayerLength(val);
         });
 
         modelFreq.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerFreq.getValue().toString());
-            attenuationChart.setFreq(val);
+            attenuationDataset.setFreq(val);
         });
 
         modelRainRate.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainRate.getValue().toString());
-            attenuationChart.setRainRate(val);
+            attenuationDataset.setRainRate(val);
         });
         modelPolarizationTiltAngle.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
-            attenuationChart.setPolarizationTiltAngle(val);
+            attenuationDataset.setPolarizationTiltAngle(val);
         });
         modelPathElevationAngleStart.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPathElevationAngleStart.getValue().toString());
-            attenuationChart.setPathElevationAngleStart(val);
+            attenuationDataset.setPathElevationAngleStart(val);
         });
         modelPathElevationAngleStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPathElevationAngleStop.getValue().toString());
-            attenuationChart.setPathElevationAngleStop(val);
+            attenuationDataset.setPathElevationAngleStop(val);
         });
 
 
@@ -88,7 +87,7 @@ public class ChartElevationAttenuationWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            attenuationChart.runGraph("Tłumienie deszczu", "Kąt elewacji", "Tłumienie [dB]", "Elevation"));
+                            attenuationDataset.runGraph("Tłumienie deszczu", "Kąt elewacji", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.ELEVATION)));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
