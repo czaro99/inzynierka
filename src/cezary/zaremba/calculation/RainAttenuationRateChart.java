@@ -20,13 +20,13 @@ public class RainAttenuationRateChart {
 
 
     private double rainRate = 5;
-    private double rainRateStart = 0.1;
-    private double rainRateStop = 10;
+    private double rainRateStart = 1;
+    private double rainRateStop = 200;
     private double pathElevationAngle = 10;
     private double pathElevationAngleStart = 1;
-    private double pathElevationAngleStop = 10;
+    private double pathElevationAngleStop = 90;
     private double polarizationTiltAngle = 45;
-    private double polarizationTiltAngleStart = 0;
+    private double polarizationTiltAngleStart = 1;
     private double polarizationTiltAngleStop = 90;
     private double freq = 1;
     private double freqStart = 1;

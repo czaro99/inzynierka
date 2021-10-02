@@ -47,41 +47,26 @@ public class ChartElevationRateWindow extends JFrame {
         p1.add(labelPathElevationAngleStop);
         p1.add(spinnerPathElevationAngleStop);
 
-        modelFreq.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerFreq.getValue().toString());
-                attenuationChart.setFreq(val);
-            }
+        modelFreq.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerFreq.getValue().toString());
+            attenuationChart.setFreq(val);
         });
 
-        modelRainRate.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerRainRate.getValue().toString());
-                attenuationChart.setRainRate(val);
-            }
+        modelRainRate.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainRate.getValue().toString());
+            attenuationChart.setRainRate(val);
         });
-        modelPolarizationTiltAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
-                attenuationChart.setPolarizationTiltAngle(val);
-            }
+        modelPolarizationTiltAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
+            attenuationChart.setPolarizationTiltAngle(val);
         });
-        modelPathElevationAngleStart.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPathElevationAngleStart.getValue().toString());
-                attenuationChart.setPathElevationAngleStart(val);
-            }
+        modelPathElevationAngleStart.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPathElevationAngleStart.getValue().toString());
+            attenuationChart.setPathElevationAngleStart(val);
         });
-        modelPathElevationAngleStop.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPathElevationAngleStop.getValue().toString());
-                attenuationChart.setPathElevationAngleStop(val);
-            }
+        modelPathElevationAngleStop.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPathElevationAngleStop.getValue().toString());
+            attenuationChart.setPathElevationAngleStop(val);
         });
 
 

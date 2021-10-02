@@ -47,41 +47,26 @@ public class ChartPolarizationRateWindow extends JFrame {
         p1.add(labelPolarizationTiltAngleStop);
         p1.add(spinnerPolarizationTiltAngleStop);
 
-        modelFreq.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerFreq.getValue().toString());
-                attenuationChart.setFreq(val);
-            }
+        modelFreq.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerFreq.getValue().toString());
+            attenuationChart.setFreq(val);
         });
 
-        modelRainRate.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerRainRate.getValue().toString());
-                attenuationChart.setRainRate(val);
-            }
+        modelRainRate.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainRate.getValue().toString());
+            attenuationChart.setRainRate(val);
         });
-        modelPathElevationAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPathElevationAngle.getValue().toString());
-                attenuationChart.setPathElevationAngle(val);
-            }
+        modelPathElevationAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPathElevationAngle.getValue().toString());
+            attenuationChart.setPathElevationAngle(val);
         });
-        modelPolarizationTiltAngleStart.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPolarizationTiltAngleStart.getValue().toString());
-                attenuationChart.setPolarizationTiltAngleStart(val);
-            }
+        modelPolarizationTiltAngleStart.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngleStart.getValue().toString());
+            attenuationChart.setPolarizationTiltAngleStart(val);
         });
-        modelPolarizationTiltAngleStop.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerPolarizationTiltAngleStop.getValue().toString());
-                attenuationChart.setPolarizationTiltAngleStop(val);
-            }
+        modelPolarizationTiltAngleStop.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngleStop.getValue().toString());
+            attenuationChart.setPolarizationTiltAngleStop(val);
         });
 
 

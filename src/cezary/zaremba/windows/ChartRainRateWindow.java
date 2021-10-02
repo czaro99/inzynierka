@@ -25,63 +25,48 @@ public class ChartRainRateWindow extends JFrame {
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(30, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelRainStart = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
-        SpinnerModel modelRainStop = new SpinnerNumberModel(100, 0.1, 1000, 0.1);
+        SpinnerModel modelRainStop = new SpinnerNumberModel(200, 0.1, 1000, 0.1);
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
-        JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji:");
-        JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelpolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
+        JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
+        JLabel labelPathElevationAngle = new JLabel("Kąt elewacji:");
+        JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
+        JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerRainStart = new JSpinner(modelRainStart);
         JLabel labelRainStart = new JLabel("Min. współczynnik opadów [mm/h]:");
         JSpinner spinnerRainStop = new JSpinner(modelRainStop);
         JLabel labelRainStop = new JLabel("Max. współczynnik opadów [mm/h]:");
         p1.add(labelFreq);
         p1.add(spinnerFreq);
-        p1.add(labelpathElevationAngle);
-        p1.add(spinnerpathElevationAngle);
-        p1.add(labelpolarizationTiltAngle);
-        p1.add(spinnerpolarizationTiltAngle);
+        p1.add(labelPathElevationAngle);
+        p1.add(spinnerPathElevationAngle);
+        p1.add(labelPolarizationTiltAngle);
+        p1.add(spinnerPolarizationTiltAngle);
         p1.add(labelRainStart);
         p1.add(spinnerRainStart);
         p1.add(labelRainStop);
         p1.add(spinnerRainStop);
 
-        modelFreq.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerFreq.getValue().toString());
-                attenuationChart.setFreq(val);
-            }
+        modelFreq.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerFreq.getValue().toString());
+            attenuationChart.setFreq(val);
         });
 
-        modelPathElevationAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerpathElevationAngle.getValue().toString());
-                attenuationChart.setPathElevationAngle(val);
-            }
+        modelPathElevationAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPathElevationAngle.getValue().toString());
+            attenuationChart.setPathElevationAngle(val);
         });
-        modelPolarizationTiltAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerpolarizationTiltAngle.getValue().toString());
-                attenuationChart.setPolarizationTiltAngle(val);
-            }
+        modelPolarizationTiltAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
+            attenuationChart.setPolarizationTiltAngle(val);
         });
-        modelRainStart.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerRainStart.getValue().toString());
-                attenuationChart.setRainRateStart(val);
-            }
+        modelRainStart.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainStart.getValue().toString());
+            attenuationChart.setRainRateStart(val);
         });
-        modelRainStop.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerRainStop.getValue().toString());
-                attenuationChart.setRainRateStop(val);
-            }
+        modelRainStop.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainStop.getValue().toString());
+            attenuationChart.setRainRateStop(val);
         });
 
 

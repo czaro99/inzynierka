@@ -47,41 +47,26 @@ public class ChartFreqRateWindow extends JFrame {
         p1.add(labelfreqStop);
         p1.add(spinnerfreqStop);
 
-        modelRainRate.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerRainRate.getValue().toString());
-                attenuationChart.setRainRate(val);
-            }
+        modelRainRate.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainRate.getValue().toString());
+            attenuationChart.setRainRate(val);
         });
 
-        modelPathElevationAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerpathElevationAngle.getValue().toString());
-                attenuationChart.setPathElevationAngle(val);
-            }
+        modelPathElevationAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerpathElevationAngle.getValue().toString());
+            attenuationChart.setPathElevationAngle(val);
         });
-        modelPolarizationTiltAngle.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerpolarizationTiltAngle.getValue().toString());
-                attenuationChart.setPolarizationTiltAngle(val);
-            }
+        modelPolarizationTiltAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerpolarizationTiltAngle.getValue().toString());
+            attenuationChart.setPolarizationTiltAngle(val);
         });
-        modelFreqStart.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerfreqStart.getValue().toString());
-                attenuationChart.setFreqStart(val);
-            }
+        modelFreqStart.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerfreqStart.getValue().toString());
+            attenuationChart.setFreqStart(val);
         });
-        modelFreqStop.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                double val = Double.parseDouble(spinnerfreqStop.getValue().toString());
-                attenuationChart.setFreqStop(val);
-            }
+        modelFreqStop.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerfreqStop.getValue().toString());
+            attenuationChart.setFreqStop(val);
         });
 
 
