@@ -1,6 +1,5 @@
 package cezary.zaremba.windows;
 
-import cezary.zaremba.calculation.RainAttenuationChart;
 import cezary.zaremba.calculation.RainAttenuationRateDataset;
 import cezary.zaremba.model.ChartType;
 import org.jfree.chart.ChartPanel;
