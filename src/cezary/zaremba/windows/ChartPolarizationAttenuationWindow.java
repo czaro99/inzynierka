@@ -1,6 +1,7 @@
 package cezary.zaremba.windows;
 
 import cezary.zaremba.calculation.RainAttenuationChart;
+import cezary.zaremba.calculation.RainAttenuationRateChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,32 +10,38 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ChartPolarizationWindow extends JFrame {
+public class ChartPolarizationAttenuationWindow extends JFrame {
 
     private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
 
-    public ChartPolarizationWindow() {
+    public ChartPolarizationAttenuationWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
         chartPanel.setMouseWheelEnabled(true);
 
         JPanel p1 = new JPanel();
+        SpinnerModel modelRainLayerLength = new SpinnerNumberModel(1, 0.1, 100000, 0.1);
         SpinnerModel modelFreq = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
         SpinnerModel modelRainRate = new SpinnerNumberModel(10, 0.1, 100, 0.1);
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
+        JSpinner spinnerRainLayerLength = new JSpinner(modelRainLayerLength);
+        JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerFreq = new JSpinner(modelFreq);
-        JLabel labelFreq = new JLabel("Frequency [GHz]:");
+        JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Rain rate [mm/h]:");
+        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
         JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelPathElevationAngle = new JLabel("Path elevation angle:");
+        JLabel labelPathElevationAngle = new JLabel("Kąt elewacji:");
         JSpinner spinnerPolarizationTiltAngleStart = new JSpinner(modelPolarizationTiltAngleStart);
-        JLabel labelPolarizationTiltAngleStart = new JLabel("min Polarization angle:");
+        JLabel labelPolarizationTiltAngleStart = new JLabel("Min. kąt polaryzacji:");
         JSpinner spinnerPolarizationTiltAngleStop = new JSpinner(modelPolarizationTiltAngleStop);
-        JLabel labelPolarizationTiltAngleStop = new JLabel("max Polarization angle:");
+        JLabel labelPolarizationTiltAngleStop = new JLabel("Max. kąt polaryzacji:");
+
+        p1.add(labelRainLayerLength);
+        p1.add(spinnerRainLayerLength);
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelRainRate);
@@ -45,6 +52,14 @@ public class ChartPolarizationWindow extends JFrame {
         p1.add(spinnerPolarizationTiltAngleStart);
         p1.add(labelPolarizationTiltAngleStop);
         p1.add(spinnerPolarizationTiltAngleStop);
+
+        modelRainLayerLength.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double val = Double.parseDouble(spinnerRainLayerLength.getValue().toString());
+                attenuationChart.setRainLayerLength(val);
+            }
+        });
 
         modelFreq.addChangeListener(new ChangeListener() {
             @Override
@@ -86,15 +101,15 @@ public class ChartPolarizationWindow extends JFrame {
 
         add(chartPanel, BorderLayout.NORTH);
         add(p1, BorderLayout.CENTER);
-        add(new JButton(new AbstractAction("Draw Graph") {
+        add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chartPanel.setChart(
-                        attenuationChart.runGraph("Rain attenuation", "Polarization tilt angle", "Attenuation [dB/km]", "Polarization"));
+                        attenuationChart.runGraph("Tłumienie deszczu", "Kąt polaryzacji", "Tłumienie [dB]", "Polarization"));
             }
         }), BorderLayout.SOUTH);
 
-        JButton menuButton = new JButton(new AbstractAction("Back to menu") {
+        JButton menuButton = new JButton(new AbstractAction("Powrót do menu") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MenuWindow menuWindow = new MenuWindow();

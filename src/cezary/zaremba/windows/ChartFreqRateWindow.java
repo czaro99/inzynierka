@@ -1,6 +1,6 @@
 package cezary.zaremba.windows;
 
-import cezary.zaremba.calculation.RainAttenuationChart;
+import cezary.zaremba.calculation.RainAttenuationRateChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ChartFreqWindow extends JFrame {
+public class ChartFreqRateWindow extends JFrame {
 
-    private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
+    private final RainAttenuationRateChart attenuationChart = new RainAttenuationRateChart();
 
-    public ChartFreqWindow() {
+    public ChartFreqRateWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
@@ -26,15 +26,15 @@ public class ChartFreqWindow extends JFrame {
         SpinnerModel modelFreqStart = new SpinnerNumberModel(1, 1, 1000, 0.1);
         SpinnerModel modelFreqStop = new SpinnerNumberModel(300, 1, 1000, 0.1);
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Rain rate [mm/h]:");
+        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelpathElevationAngle = new JLabel("Path elevation angle:");
+        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelpolarizationTiltAngle = new JLabel("Polarization tilt angle:");
+        JLabel labelpolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerfreqStart = new JSpinner(modelFreqStart);
-        JLabel labelfreqStart = new JLabel("Start frequency [GHz]:");
+        JLabel labelfreqStart = new JLabel("Min. częstotliwość [GHz]:");
         JSpinner spinnerfreqStop = new JSpinner(modelFreqStop);
-        JLabel labelfreqStop = new JLabel("Stop frequency [GHz]:");
+        JLabel labelfreqStop = new JLabel("Max. częstotliwość [GHz]:");
         p1.add(labelRainRate);
         p1.add(spinnerRainRate);
         p1.add(labelpathElevationAngle);
@@ -86,15 +86,15 @@ public class ChartFreqWindow extends JFrame {
 
         add(chartPanel, BorderLayout.NORTH);
         add(p1, BorderLayout.CENTER);
-        add(new JButton(new AbstractAction("Draw Graph") {
+        add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chartPanel.setChart(
-                        attenuationChart.runGraph("Rain attenuation", "Frequency [GHz]", "Attenuation [dB/km]", "Freq"));
+                        attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Częstotliwość [GHz]", "Tłumienie jednostkowe [dB/km]", "Freq"));
             }
         }), BorderLayout.SOUTH);
 
-        JButton menuButton = new JButton(new AbstractAction("Back to menu") {
+        JButton menuButton = new JButton(new AbstractAction("Powrót do menu") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MenuWindow menuWindow = new MenuWindow();

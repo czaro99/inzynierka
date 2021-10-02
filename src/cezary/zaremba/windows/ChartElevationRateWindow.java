@@ -1,6 +1,6 @@
 package cezary.zaremba.windows;
 
-import cezary.zaremba.calculation.RainAttenuationChart;
+import cezary.zaremba.calculation.RainAttenuationRateChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ChartElevationWindow extends JFrame {
+public class ChartElevationRateWindow extends JFrame {
 
-    private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
+    private final RainAttenuationRateChart attenuationChart = new RainAttenuationRateChart();
 
-    public ChartElevationWindow() {
+    public ChartElevationRateWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
@@ -26,15 +26,15 @@ public class ChartElevationWindow extends JFrame {
         SpinnerModel modelPathElevationAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPathElevationAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
         JSpinner spinnerFreq = new JSpinner(modelFreq);
-        JLabel labelFreq = new JLabel("Frequency [GHz]:");
+        JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Rain rate [mm/h]:");
+        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
         JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelPolarizationTiltAngle = new JLabel("Polarization tilt angle:");
+        JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerPathElevationAngleStart = new JSpinner(modelPathElevationAngleStart);
-        JLabel labelPathElevationAngleStart = new JLabel("min Path elevation angle:");
+        JLabel labelPathElevationAngleStart = new JLabel("Min. kąt elewacji:");
         JSpinner spinnerPathElevationAngleStop = new JSpinner(modelPathElevationAngleStop);
-        JLabel labelPathElevationAngleStop = new JLabel("max Path elevation angle:");
+        JLabel labelPathElevationAngleStop = new JLabel("Max. kąt elewacji:");
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelRainRate);
@@ -86,15 +86,15 @@ public class ChartElevationWindow extends JFrame {
 
         add(chartPanel, BorderLayout.NORTH);
         add(p1, BorderLayout.CENTER);
-        add(new JButton(new AbstractAction("Draw Graph") {
+        add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chartPanel.setChart(
-                        attenuationChart.runGraph("Rain attenuation", "Path elevation angle", "Attenuation [dB/km]", "Elevation"));
+                        attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Kąt elewacji", "Tłumienie jednostkowe [dB/km]", "Elevation"));
             }
         }), BorderLayout.SOUTH);
 
-        JButton menuButton = new JButton(new AbstractAction("Back to menu") {
+        JButton menuButton = new JButton(new AbstractAction("Powrót do menu") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MenuWindow menuWindow = new MenuWindow();

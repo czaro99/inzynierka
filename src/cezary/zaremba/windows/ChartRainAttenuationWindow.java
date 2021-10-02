@@ -1,6 +1,7 @@
 package cezary.zaremba.windows;
 
 import cezary.zaremba.calculation.RainAttenuationChart;
+import cezary.zaremba.calculation.RainAttenuationRateChart;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,32 +10,37 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ChartRainWindow extends JFrame {
+public class ChartRainAttenuationWindow extends JFrame {
 
     private final RainAttenuationChart attenuationChart = new RainAttenuationChart();
 
-    public ChartRainWindow() {
+    public ChartRainAttenuationWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
         chartPanel.setMouseWheelEnabled(true);
 
         JPanel p1 = new JPanel();
+        SpinnerModel modelRainLayerLength = new SpinnerNumberModel(1, 0.1, 100000, 0.1);
         SpinnerModel modelFreq = new SpinnerNumberModel(10, 0.1, 1000, 0.1);
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(30, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelRainStart = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
         SpinnerModel modelRainStop = new SpinnerNumberModel(100, 0.1, 1000, 0.1);
+        JSpinner spinnerRainLayerLength = new JSpinner(modelRainLayerLength);
+        JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerFreq = new JSpinner(modelFreq);
-        JLabel labelFreq = new JLabel("Frequency [GHz]:");
+        JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelpathElevationAngle = new JLabel("Path elevation angle:");
+        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelpolarizationTiltAngle = new JLabel("Polarization tilt angle:");
+        JLabel labelpolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerRainStart = new JSpinner(modelRainStart);
-        JLabel labelRainStart = new JLabel("min rain rate [mm/h]:");
+        JLabel labelRainStart = new JLabel("Min. współczynnik opadów [mm/h]:");
         JSpinner spinnerRainStop = new JSpinner(modelRainStop);
-        JLabel labelRainStop = new JLabel("max rain rate [mm/h]:");
+        JLabel labelRainStop = new JLabel("Max. współczynnik opadów [mm/h]:");
+        p1.add(labelRainLayerLength);
+        p1.add(spinnerRainLayerLength);
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelpathElevationAngle);
@@ -45,6 +51,14 @@ public class ChartRainWindow extends JFrame {
         p1.add(spinnerRainStart);
         p1.add(labelRainStop);
         p1.add(spinnerRainStop);
+
+        modelRainLayerLength.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double val = Double.parseDouble(spinnerRainLayerLength.getValue().toString());
+                attenuationChart.setRainLayerLength(val);
+            }
+        });
 
         modelFreq.addChangeListener(new ChangeListener() {
             @Override
@@ -86,15 +100,15 @@ public class ChartRainWindow extends JFrame {
 
         add(chartPanel, BorderLayout.NORTH);
         add(p1, BorderLayout.CENTER);
-        add(new JButton(new AbstractAction("Draw Graph") {
+        add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 chartPanel.setChart(
-                        attenuationChart.runGraph("Rain attenuation", "Rain Rate [mm/h]", "Attenuation [dB/km]", "Rain rate"));
+                        attenuationChart.runGraph("Tłumienie deszczu", "Współczynnik opadów [mm/h]", "Tłumienie [dB]", "Rain rate"));
             }
         }), BorderLayout.SOUTH);
 
-        JButton menuButton = new JButton(new AbstractAction("Back to menu") {
+        JButton menuButton = new JButton(new AbstractAction("Powrót do menu") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MenuWindow menuWindow = new MenuWindow();
