@@ -1,5 +1,6 @@
 package cezary.zaremba.calculation;
 
+import cezary.zaremba.File.FileManager;
 import cezary.zaremba.model.Coefficients;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -11,6 +12,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RainAttenuationChart {
 
@@ -27,9 +31,10 @@ public class RainAttenuationChart {
     private double freq = 1;
     private double freqStart = 1;
     private double freqStop = 300;
+    private final FileManager fileManager = new FileManager();
 
 
-    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, String type) {
+    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, String type) throws IOException {
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle,
                 xLabel,
@@ -47,44 +52,49 @@ public class RainAttenuationChart {
     }
 
 
-    private XYDataset createDataset(String type) {
+    private XYDataset createDataset(String type) throws IOException {
         final XYSeries attenuationSeries = new XYSeries("Attenuation");
 
         CoefficientsCalculation coefficientsCalculation = new CoefficientsCalculation();
+        List<String[]> results = new ArrayList<>();
         switch (type) {
             case "Freq":
-                for (double i = freqStart; i <= freqStop; i += 0.1) {
+                for (double i = freqStart; i <= freqStop; i += 1) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i, pathElevationAngle, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
-                    attenuationSeries.add(i, attenuation*rainLayerLength);
-                    String toFile = i + ": " + attenuation * rainLayerLength;
+                    attenuationSeries.add(i, attenuation * rainLayerLength);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation * rainLayerLength)});
                 }
                 break;
             case "Rain rate":
-                for (double i = rainRateStart; i <= rainRateStop; i += 0.1) {
+                for (double i = rainRateStart; i <= rainRateStop; i += 1) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(i, coefficients.getAlfa());
-                    attenuationSeries.add(i, attenuation*rainLayerLength);
+                    attenuationSeries.add(i, attenuation * rainLayerLength);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation * rainLayerLength)});
                 }
                 break;
             case "Elevation":
-                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += 0.1) {
+                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += 1) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, i, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
-                    attenuationSeries.add(i, attenuation*rainLayerLength);
+                    attenuationSeries.add(i, attenuation * rainLayerLength);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation * rainLayerLength)});
                 }
                 break;
             case "Polarization":
-                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += 0.1) {
+                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += 1) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, i);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
-                    attenuationSeries.add(i, attenuation*rainLayerLength);
+                    attenuationSeries.add(i, attenuation * rainLayerLength);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation * rainLayerLength)});
                 }
                 break;
             default:
                 break;
         }
-
+        fileManager.writeToCSV(results);
+        results.clear();
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(attenuationSeries);

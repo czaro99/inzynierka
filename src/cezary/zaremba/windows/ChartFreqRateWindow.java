@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ChartFreqRateWindow extends JFrame {
 
@@ -89,8 +90,12 @@ public class ChartFreqRateWindow extends JFrame {
         add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartPanel.setChart(
-                        attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Częstotliwość [GHz]", "Tłumienie jednostkowe [dB/km]", "Freq"));
+                try {
+                    chartPanel.setChart(
+                            attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Częstotliwość [GHz]", "Tłumienie jednostkowe [dB/km]", "Freq"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }), BorderLayout.SOUTH);
 

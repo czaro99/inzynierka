@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ChartElevationAttenuationWindow extends JFrame {
 
@@ -103,8 +104,12 @@ public class ChartElevationAttenuationWindow extends JFrame {
         add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartPanel.setChart(
-                        attenuationChart.runGraph("Tłumienie deszczu", "Kąt elewacji", "Tłumienie [dB]", "Elevation"));
+                try {
+                    chartPanel.setChart(
+                            attenuationChart.runGraph("Tłumienie deszczu", "Kąt elewacji", "Tłumienie [dB]", "Elevation"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }), BorderLayout.SOUTH);
 

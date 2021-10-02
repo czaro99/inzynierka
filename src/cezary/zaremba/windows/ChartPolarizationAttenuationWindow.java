@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ChartPolarizationAttenuationWindow extends JFrame {
 
@@ -104,8 +105,12 @@ public class ChartPolarizationAttenuationWindow extends JFrame {
         add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartPanel.setChart(
-                        attenuationChart.runGraph("Tłumienie deszczu", "Kąt polaryzacji", "Tłumienie [dB]", "Polarization"));
+                try {
+                    chartPanel.setChart(
+                            attenuationChart.runGraph("Tłumienie deszczu", "Kąt polaryzacji", "Tłumienie [dB]", "Polarization"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }), BorderLayout.SOUTH);
 

@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ChartFreqAttenuationWindow extends JFrame{
 
@@ -104,8 +105,12 @@ public class ChartFreqAttenuationWindow extends JFrame{
         add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartPanel.setChart(
-                        attenuationChart.runGraph("Tłumienie deszczu", "Częstotliwość [GHz]", "Tłumienie [dB]", "Freq"));
+                try {
+                    chartPanel.setChart(
+                            attenuationChart.runGraph("Tłumienie deszczu", "Częstotliwość [GHz]", "Tłumienie [dB]", "Freq"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }), BorderLayout.SOUTH);
 

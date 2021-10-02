@@ -1,26 +1,21 @@
 package cezary.zaremba.File;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class FileManager {
 
-    public static void writeFile(List<String> content) {
-
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(
-                    new FileWriter("attenuation.txt"));
-            for (String s:
-                 content) {
-                bufferedWriter.write(s+"\n");
-            }
-            bufferedWriter.close();
-        } catch (Exception exception) {
-            System.out.println("error");
-        }
+    private String convertToCSV(String[] data) {
+        return String.join(",", data);
     }
 
+    public void writeToCSV(List<String[]> data) throws IOException {
+        File csvOutputFile = new File("result.csv");
+        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+            data.stream()
+                    .map(this::convertToCSV)
+                    .forEach(pw::println);
+        }
+    }
 
 }

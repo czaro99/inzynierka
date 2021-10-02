@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ChartElevationRateWindow extends JFrame {
 
@@ -89,8 +90,12 @@ public class ChartElevationRateWindow extends JFrame {
         add(new JButton(new AbstractAction("Rysuj wykres") {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartPanel.setChart(
-                        attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Kąt elewacji", "Tłumienie jednostkowe [dB/km]", "Elevation"));
+                try {
+                    chartPanel.setChart(
+                            attenuationChart.runGraph("Tłumienie jednostkowe deszczu", "Kąt elewacji", "Tłumienie jednostkowe [dB/km]", "Elevation"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }), BorderLayout.SOUTH);
 

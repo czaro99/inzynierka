@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,10 @@ public class RainAttenuationRateChart {
     private double freq = 1;
     private double freqStart = 1;
     private double freqStop = 300;
+    private final FileManager fileManager = new FileManager();
 
 
-    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, String type) {
+    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, String type) throws IOException {
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle,
                 xLabel,
@@ -47,50 +49,54 @@ public class RainAttenuationRateChart {
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));
         plot.setRenderer(renderer);
         return xylineChart;
-}
+    }
 
 
-
-    private XYDataset createDataset(String type) {
+    private XYDataset createDataset(String type) throws IOException {
         final XYSeries attenuationSeries = new XYSeries("Attenuation");
 
         CoefficientsCalculation coefficientsCalculation = new CoefficientsCalculation();
-        switch (type){
+        List<String[]> results = new ArrayList<>();
+        switch (type) {
             case "Freq":
-                List<String> results = new ArrayList<>();
-                for (double i = freqStart; i <= freqStop; i+=1) {
-                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i,pathElevationAngle,polarizationTiltAngle);
-                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
-                    attenuationSeries.add(i , attenuation);
-                    results.add(i + ": " + attenuation);
+                for (double i = freqStart; i <= freqStop; i += 1) {
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i, pathElevationAngle, polarizationTiltAngle);
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
-                FileManager.writeFile(results);
+
                 break;
             case "Rain rate":
-                for (double i = rainRateStart; i <= rainRateStop; i+=0.1) {
-                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,polarizationTiltAngle);
-                    double attenuation = coefficients.getK()*Math.pow(i,coefficients.getAlfa());
-                    attenuationSeries.add(i , attenuation);
+                for (double i = rainRateStart; i <= rainRateStop; i += 1) {
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, polarizationTiltAngle);
+                    double attenuation = coefficients.getK() * Math.pow(i, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
             case "Elevation":
-                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i+=0.1) {
-                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,i,polarizationTiltAngle);
-                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
-                    attenuationSeries.add(i , attenuation);
+                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += 1) {
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, i, polarizationTiltAngle);
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
             case "Polarization":
-                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i+=0.1) {
-                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq,pathElevationAngle,i);
-                    double attenuation = coefficients.getK()*Math.pow(rainRate,coefficients.getAlfa());
-                    attenuationSeries.add(i , attenuation);
+                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += 1) {
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, i);
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
-                default:
+            default:
                 break;
-        }
 
+        }
+        fileManager.writeToCSV(results);
+        results.clear();
 
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
@@ -101,16 +107,23 @@ public class RainAttenuationRateChart {
     public void setRainRate(double rainRate) {
         this.rainRate = rainRate;
     }
+
     public void setPathElevationAngle(double pathElevationAngle) {
         this.pathElevationAngle = pathElevationAngle;
     }
-    public void setPolarizationTiltAngle(double polarizationTiltAngle) { this.polarizationTiltAngle = polarizationTiltAngle; }
+
+    public void setPolarizationTiltAngle(double polarizationTiltAngle) {
+        this.polarizationTiltAngle = polarizationTiltAngle;
+    }
+
     public void setFreqStart(double freqStart) {
         this.freqStart = freqStart;
     }
+
     public void setFreqStop(double freqStop) {
         this.freqStop = freqStop;
     }
+
     public void setRainRateStart(double rainRateStart) {
         this.rainRateStart = rainRateStart;
     }
