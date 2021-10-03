@@ -31,28 +31,28 @@ public class ChartFreqAttenuationWindow extends JFrame{
         JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
         JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
-        JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji:");
-        JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelpolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
-        JSpinner spinnerfreqStart = new JSpinner(modelFreqStart);
-        JLabel labelfreqStart = new JLabel("Min. częstotliwość [GHz]:");
-        JSpinner spinnerfreqStop = new JSpinner(modelFreqStop);
-        JLabel labelfreqStop = new JLabel("Max. częstotliwość [GHz]:");
+        JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
+        JLabel labelPathElevationAngle = new JLabel("Kąt elewacji:");
+        JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
+        JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
+        JSpinner spinnerFreqStart = new JSpinner(modelFreqStart);
+        JLabel labelFreqStart = new JLabel("Min. częstotliwość [GHz]:");
+        JSpinner spinnerFreqStop = new JSpinner(modelFreqStop);
+        JLabel labelFreqStop = new JLabel("Max. częstotliwość [GHz]:");
         JSpinner spinnerStep = new JSpinner(modelStep);
         JLabel labelStep = new JLabel("Krok:");
         p1.add(labelRainLayerLength);
         p1.add(spinnerRainLayerLength);
         p1.add(labelRainRate);
         p1.add(spinnerRainRate);
-        p1.add(labelpathElevationAngle);
-        p1.add(spinnerpathElevationAngle);
-        p1.add(labelpolarizationTiltAngle);
-        p1.add(spinnerpolarizationTiltAngle);
-        p1.add(labelfreqStart);
-        p1.add(spinnerfreqStart);
-        p1.add(labelfreqStop);
-        p1.add(spinnerfreqStop);
+        p1.add(labelPathElevationAngle);
+        p1.add(spinnerPathElevationAngle);
+        p1.add(labelPolarizationTiltAngle);
+        p1.add(spinnerPolarizationTiltAngle);
+        p1.add(labelFreqStart);
+        p1.add(spinnerFreqStart);
+        p1.add(labelFreqStop);
+        p1.add(spinnerFreqStop);
         p1.add(labelStep);
         p1.add(spinnerStep);
 
@@ -68,19 +68,19 @@ public class ChartFreqAttenuationWindow extends JFrame{
         });
 
         modelPathElevationAngle.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerpathElevationAngle.getValue().toString());
+            double val = Double.parseDouble(spinnerPathElevationAngle.getValue().toString());
             attenuationDataset.setPathElevationAngle(val);
         });
         modelPolarizationTiltAngle.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerpolarizationTiltAngle.getValue().toString());
+            double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
             attenuationDataset.setPolarizationTiltAngle(val);
         });
         modelFreqStart.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerfreqStart.getValue().toString());
+            double val = Double.parseDouble(spinnerFreqStart.getValue().toString());
             attenuationDataset.setFreqStart(val);
         });
         modelFreqStop.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerfreqStop.getValue().toString());
+            double val = Double.parseDouble(spinnerFreqStop.getValue().toString());
             attenuationDataset.setFreqStop(val);
         });
 

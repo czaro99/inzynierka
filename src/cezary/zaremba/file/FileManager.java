@@ -11,10 +11,10 @@ public class FileManager {
 
     public void writeToCSV(List<String[]> data) throws IOException {
         File csvOutputFile = new File("result.csv");
-        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+        try (PrintWriter printWriter = new PrintWriter(csvOutputFile)) {
             data.stream()
                     .map(this::convertToCSV)
-                    .forEach(pw::println);
+                    .forEach(printWriter::println);
         }
     }
 
