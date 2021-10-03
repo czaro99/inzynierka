@@ -1,6 +1,6 @@
 package cezary.zaremba.windows;
 
-import cezary.zaremba.calculation.RainAttenuationDataset;
+import cezary.zaremba.calculation.AttenuationChart;
 import cezary.zaremba.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ChartFreqAttenuationWindow extends JFrame{
 
-    private final RainAttenuationDataset attenuationDataset = new RainAttenuationDataset();
+    private final AttenuationChart attenuationDataset = new AttenuationChart();
 
     public ChartFreqAttenuationWindow() {
         super("Projekt inżynierski");

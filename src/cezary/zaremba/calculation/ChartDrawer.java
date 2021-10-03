@@ -10,7 +10,7 @@ import org.jfree.data.xy.XYDataset;
 import java.awt.*;
 import java.io.IOException;
 
-public class RainAttenuationChart {
+public class ChartDrawer {
 
     public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, XYDataset dataset) throws IOException {
         JFreeChart xylineChart = ChartFactory.createXYLineChart(

@@ -1,6 +1,6 @@
 package cezary.zaremba.windows;
 
-import cezary.zaremba.calculation.RainAttenuationRateDataset;
+import cezary.zaremba.calculation.AttenuationRateChart;
 import cezary.zaremba.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ChartPolarizationRateWindow extends JFrame {
 
-    private final RainAttenuationRateDataset attenuationDataset = new RainAttenuationRateDataset();
+    private final AttenuationRateChart attenuationDataset = new AttenuationRateChart();
 
 
     public ChartPolarizationRateWindow() {
