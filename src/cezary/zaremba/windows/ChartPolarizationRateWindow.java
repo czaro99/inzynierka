@@ -26,6 +26,9 @@ public class ChartPolarizationRateWindow extends JFrame {
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
+        SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
+        JSpinner spinnerStep = new JSpinner(modelStep);
+        JLabel labelStep = new JLabel("Krok:");
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Frequency [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
@@ -46,6 +49,8 @@ public class ChartPolarizationRateWindow extends JFrame {
         p1.add(spinnerPolarizationTiltAngleStart);
         p1.add(labelPolarizationTiltAngleStop);
         p1.add(spinnerPolarizationTiltAngleStop);
+        p1.add(labelStep);
+        p1.add(spinnerStep);
 
         modelFreq.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerFreq.getValue().toString());
@@ -67,6 +72,10 @@ public class ChartPolarizationRateWindow extends JFrame {
         modelPolarizationTiltAngleStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPolarizationTiltAngleStop.getValue().toString());
             attenuationDataset.setPolarizationTiltAngleStop(val);
+        });
+        modelStep.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerStep.getValue().toString());
+            attenuationDataset.setStep(val);
         });
 
 

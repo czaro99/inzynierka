@@ -25,6 +25,7 @@ public class ChartElevationRateWindow extends JFrame {
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelPathElevationAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPathElevationAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
+        SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
@@ -35,6 +36,8 @@ public class ChartElevationRateWindow extends JFrame {
         JLabel labelPathElevationAngleStart = new JLabel("Min. kąt elewacji:");
         JSpinner spinnerPathElevationAngleStop = new JSpinner(modelPathElevationAngleStop);
         JLabel labelPathElevationAngleStop = new JLabel("Max. kąt elewacji:");
+        JSpinner spinnerStep = new JSpinner(modelStep);
+        JLabel labelStep = new JLabel("Krok:");
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelRainRate);
@@ -45,6 +48,8 @@ public class ChartElevationRateWindow extends JFrame {
         p1.add(spinnerPathElevationAngleStart);
         p1.add(labelPathElevationAngleStop);
         p1.add(spinnerPathElevationAngleStop);
+        p1.add(labelStep);
+        p1.add(spinnerStep);
 
         modelFreq.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerFreq.getValue().toString());
@@ -66,6 +71,11 @@ public class ChartElevationRateWindow extends JFrame {
         modelPathElevationAngleStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPathElevationAngleStop.getValue().toString());
             attenuationDataset.setPathElevationAngleStop(val);
+        });
+
+        modelStep.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerStep.getValue().toString());
+            attenuationDataset.setStep(val);
         });
 
 

@@ -26,6 +26,9 @@ public class ChartPolarizationAttenuationWindow extends JFrame {
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
+        SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
+        JSpinner spinnerStep = new JSpinner(modelStep);
+        JLabel labelStep = new JLabel("Krok:");
         JSpinner spinnerRainLayerLength = new JSpinner(modelRainLayerLength);
         JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerFreq = new JSpinner(modelFreq);
@@ -51,6 +54,8 @@ public class ChartPolarizationAttenuationWindow extends JFrame {
         p1.add(spinnerPolarizationTiltAngleStart);
         p1.add(labelPolarizationTiltAngleStop);
         p1.add(spinnerPolarizationTiltAngleStop);
+        p1.add(labelStep);
+        p1.add(spinnerStep);
 
         modelRainLayerLength.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainLayerLength.getValue().toString());
@@ -77,6 +82,10 @@ public class ChartPolarizationAttenuationWindow extends JFrame {
         modelPolarizationTiltAngleStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerPolarizationTiltAngleStop.getValue().toString());
             attenuationDataset.setPolarizationTiltAngleStop(val);
+        });
+        modelStep.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerStep.getValue().toString());
+            attenuationDataset.setStep(val);
         });
 
 

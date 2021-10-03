@@ -25,6 +25,7 @@ public class ChartFreqRateWindow extends JFrame {
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelFreqStart = new SpinnerNumberModel(1, 1, 1000, 0.1);
         SpinnerModel modelFreqStop = new SpinnerNumberModel(300, 1, 1000, 0.1);
+        SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
         JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
@@ -35,6 +36,8 @@ public class ChartFreqRateWindow extends JFrame {
         JLabel labelfreqStart = new JLabel("Min. częstotliwość [GHz]:");
         JSpinner spinnerfreqStop = new JSpinner(modelFreqStop);
         JLabel labelfreqStop = new JLabel("Max. częstotliwość [GHz]:");
+        JSpinner spinnerStep = new JSpinner(modelStep);
+        JLabel labelStep = new JLabel("Krok:");
         p1.add(labelRainRate);
         p1.add(spinnerRainRate);
         p1.add(labelpathElevationAngle);
@@ -45,6 +48,8 @@ public class ChartFreqRateWindow extends JFrame {
         p1.add(spinnerfreqStart);
         p1.add(labelfreqStop);
         p1.add(spinnerfreqStop);
+        p1.add(labelStep);
+        p1.add(spinnerStep);
 
         modelRainRate.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainRate.getValue().toString());
@@ -66,6 +71,11 @@ public class ChartFreqRateWindow extends JFrame {
         modelFreqStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerfreqStop.getValue().toString());
             attenuationDataset.setFreqStop(val);
+        });
+
+        modelStep.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerStep.getValue().toString());
+            attenuationDataset.setStep(val);
         });
 
 

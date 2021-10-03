@@ -27,6 +27,7 @@ public class AttenuationRateChart extends ChartDrawer {
     private double freqStart = 1;
     private double freqStop = 300;
     private final FileManager fileManager = new FileManager();
+    private double step = 1;
 
 
     public XYDataset createDataset(String type) throws IOException {
@@ -36,7 +37,7 @@ public class AttenuationRateChart extends ChartDrawer {
         List<String[]> results = new ArrayList<>();
         switch (type) {
             case ChartType.FREQUENCY:
-                for (double i = freqStart; i <= freqStop; i += 1) {
+                for (double i = freqStart; i <= freqStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i, pathElevationAngle, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
                     attenuationSeries.add(i, attenuation);
@@ -45,7 +46,7 @@ public class AttenuationRateChart extends ChartDrawer {
 
                 break;
             case ChartType.RAIN_RATE:
-                for (double i = rainRateStart; i <= rainRateStop; i += 1) {
+                for (double i = rainRateStart; i <= rainRateStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(i, coefficients.getAlfa());
                     attenuationSeries.add(i, attenuation);
@@ -53,7 +54,7 @@ public class AttenuationRateChart extends ChartDrawer {
                 }
                 break;
             case ChartType.ELEVATION:
-                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += 1) {
+                for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, i, polarizationTiltAngle);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
                     attenuationSeries.add(i, attenuation);
@@ -61,7 +62,7 @@ public class AttenuationRateChart extends ChartDrawer {
                 }
                 break;
             case ChartType.POLARIZATION:
-                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += 1) {
+                for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, i);
                     double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
                     attenuationSeries.add(i, attenuation);
@@ -128,5 +129,8 @@ public class AttenuationRateChart extends ChartDrawer {
 
     public void setPolarizationTiltAngleStop(double polarizationTiltAngleStop) {
         this.polarizationTiltAngleStop = polarizationTiltAngleStop;
+    }
+    public void setStep(double step) {
+        this.step = step;
     }
 }

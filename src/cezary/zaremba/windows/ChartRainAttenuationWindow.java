@@ -26,6 +26,9 @@ public class ChartRainAttenuationWindow extends JFrame {
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelRainStart = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
         SpinnerModel modelRainStop = new SpinnerNumberModel(200, 0.1, 1000, 0.1);
+        SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
+        JSpinner spinnerStep = new JSpinner(modelStep);
+        JLabel labelStep = new JLabel("Krok:");
         JSpinner spinnerRainLayerLength = new JSpinner(modelRainLayerLength);
         JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerFreq = new JSpinner(modelFreq);
@@ -50,6 +53,8 @@ public class ChartRainAttenuationWindow extends JFrame {
         p1.add(spinnerRainStart);
         p1.add(labelRainStop);
         p1.add(spinnerRainStop);
+        p1.add(labelStep);
+        p1.add(spinnerStep);
 
         modelRainLayerLength.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainLayerLength.getValue().toString());
@@ -76,6 +81,10 @@ public class ChartRainAttenuationWindow extends JFrame {
         modelRainStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerRainStop.getValue().toString());
             attenuationDataset.setRainRateStop(val);
+        });
+        modelStep.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerStep.getValue().toString());
+            attenuationDataset.setStep(val);
         });
 
 
