@@ -76,10 +76,10 @@ public class CoefficientsCalculation {
     public Coefficients calculateCoefficients(double frequency, double pathElevationAngle, double polarizationTiltAngle) {
         double kh = calculateKh(frequency);
         double kv = calculateKv(frequency);
-        double k = (kh + kv + (kh - kv) * (Math.cos(Math.toRadians(pathElevationAngle))) * Math.cos(2 * (Math.toRadians(pathElevationAngle)))) / 2.0;
+        double k = (kh + kv + ((kh - kv) * (Math.pow(Math.cos(Math.toRadians(pathElevationAngle)), 2))  * Math.cos(2 * (Math.toRadians(polarizationTiltAngle))))) / 2.0;
         double ah = calculateAlfah(frequency);
         double av = calculateAlfav(frequency);
-        double a = ((kh * ah + kv * av + (kh * ah - kv * av) * (Math.pow(Math.cos(Math.toRadians(pathElevationAngle)), 2)) * Math.cos(2 * (Math.toRadians(pathElevationAngle)))) / 2 * k);
+        double a = ((kh * ah + kv * av + (kh * ah - kv * av) * (Math.pow(Math.cos(Math.toRadians(pathElevationAngle)), 2)) * Math.cos(2 * (Math.toRadians(polarizationTiltAngle)))) / (2 * k));
 
         return new Coefficients(k, a);
 
