@@ -25,7 +25,7 @@ public class MenuWindow extends JFrame {
             }
         });
 
-        JButton rainButtonRate = new JButton(new AbstractAction("współczynnika opadów") {
+        JButton rainButtonRate = new JButton(new AbstractAction("intensywności opadów") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChartRainRateWindow chartRainRateWindow = new ChartRainRateWindow();
@@ -33,7 +33,7 @@ public class MenuWindow extends JFrame {
             }
         });
 
-        JButton rainButton = new JButton(new AbstractAction("współczynnika opadów") {
+        JButton rainButton = new JButton(new AbstractAction("intensywności opadów") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChartRainAttenuationWindow chartRainAttenuationWindow = new ChartRainAttenuationWindow();

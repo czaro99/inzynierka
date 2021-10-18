@@ -79,7 +79,7 @@ public class CoefficientKFreqWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Współczynnik k", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.K), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
+                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Intensywność k", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.K), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

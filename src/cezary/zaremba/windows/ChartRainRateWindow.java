@@ -35,9 +35,9 @@ public class ChartRainRateWindow extends JFrame {
         JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
         JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerRainStart = new JSpinner(modelRainStart);
-        JLabel labelRainStart = new JLabel("Min. współczynnik opadów [mm/h]:");
+        JLabel labelRainStart = new JLabel("Min. Intensywność opadów [mm/h]:");
         JSpinner spinnerRainStop = new JSpinner(modelRainStop);
-        JLabel labelRainStop = new JLabel("Max. współczynnik opadów [mm/h]:");
+        JLabel labelRainStop = new JLabel("Max. Intensywność opadów [mm/h]:");
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelPathElevationAngle);
@@ -85,7 +85,7 @@ public class ChartRainRateWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            attenuationDataset.runGraph("", "Współczynnik opadów [mm/h]", "Tłumienie jednostkowe [dB/km]", attenuationDataset.createDataset(ChartType.RAIN_RATE), attenuationDataset.getRainRateStart(), attenuationDataset.getRainRateStop()));
+                            attenuationDataset.runGraph("", "Intensywność opadów [mm/h]", "Tłumienie jednostkowe [dB/km]", attenuationDataset.createDataset(ChartType.RAIN_RATE), attenuationDataset.getRainRateStart(), attenuationDataset.getRainRateStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

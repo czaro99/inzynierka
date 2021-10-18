@@ -32,7 +32,7 @@ public class ChartPolarizationRateWindow extends JFrame {
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Frequency [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
+        JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
         JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelPathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerPolarizationTiltAngleStart = new JSpinner(modelPolarizationTiltAngleStart);

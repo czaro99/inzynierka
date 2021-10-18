@@ -80,7 +80,7 @@ public class CoefficientAlfaFreqWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Współczynnik alfa", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.ALFA), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
+                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Intensywność alfa", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.ALFA), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

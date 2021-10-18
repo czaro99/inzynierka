@@ -30,7 +30,7 @@ public class ChartFreqAttenuationWindow extends JFrame{
         JSpinner spinnerRainLayerLength = new JSpinner(modelRainLayerLength);
         JLabel labelRainLayerLength = new JLabel("Grubość warstwy deszczowej [km]: ");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
+        JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
         JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelPathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);

@@ -27,7 +27,7 @@ public class ChartFreqRateWindow extends JFrame {
         SpinnerModel modelFreqStop = new SpinnerNumberModel(300, 1, 1000, 0.1);
         SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
+        JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelpathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);

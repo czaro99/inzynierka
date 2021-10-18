@@ -34,7 +34,7 @@ public class ChartElevationAttenuationWindow extends JFrame {
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
-        JLabel labelRainRate = new JLabel("Współczynnik opadów [mm/h]:");
+        JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
         JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
         JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerPathElevationAngleStart = new JSpinner(modelPathElevationAngleStart);
