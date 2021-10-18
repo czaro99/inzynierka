@@ -34,7 +34,7 @@ public class ChartRainAttenuationWindow extends JFrame {
         JSpinner spinnerFreq = new JSpinner(modelFreq);
         JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
-        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji:");
+        JLabel labelpathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
         JLabel labelpolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerRainStart = new JSpinner(modelRainStart);
@@ -95,7 +95,7 @@ public class ChartRainAttenuationWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            attenuationDataset.runGraph("Tłumienie deszczu", "Współczynnik opadów [mm/h]", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.RAIN_RATE)));
+                            attenuationDataset.runGraph("", "Współczynnik opadów [mm/h]", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.RAIN_RATE), attenuationDataset.getRainRateStart(), attenuationDataset.getRainRateStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

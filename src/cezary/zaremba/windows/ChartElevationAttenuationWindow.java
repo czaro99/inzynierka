@@ -24,8 +24,8 @@ public class ChartElevationAttenuationWindow extends JFrame {
         SpinnerModel modelFreq = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
         SpinnerModel modelRainRate = new SpinnerNumberModel(10, 0.1, 100, 0.1);
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
-        SpinnerModel modelPathElevationAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
-        SpinnerModel modelPathElevationAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
+        SpinnerModel modelPathElevationAngleStart = new SpinnerNumberModel(5, 5, 90, 0.1);
+        SpinnerModel modelPathElevationAngleStop = new SpinnerNumberModel(90, 5, 90, 0.1);
         SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         JSpinner spinnerStep = new JSpinner(modelStep);
         JLabel labelStep = new JLabel("Krok:");
@@ -38,9 +38,9 @@ public class ChartElevationAttenuationWindow extends JFrame {
         JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
         JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
         JSpinner spinnerPathElevationAngleStart = new JSpinner(modelPathElevationAngleStart);
-        JLabel labelPathElevationAngleStart = new JLabel("Min. kąt elewacji:");
+        JLabel labelPathElevationAngleStart = new JLabel("Min. kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerPathElevationAngleStop = new JSpinner(modelPathElevationAngleStop);
-        JLabel labelPathElevationAngleStop = new JLabel("Max. kąt elewacji:");
+        JLabel labelPathElevationAngleStop = new JLabel("Max. kąt elewacji trajektorii fali radiowej:");
         p1.add(labelRainLayerLength);
         p1.add(spinnerRainLayerLength);
         p1.add(labelFreq);
@@ -96,7 +96,7 @@ public class ChartElevationAttenuationWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            attenuationDataset.runGraph("Tłumienie deszczu", "Kąt elewacji", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.ELEVATION)));
+                            attenuationDataset.runGraph("", "Kąt elewacji trajektorii fali radiowej", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.ELEVATION), attenuationDataset.getPathElevationAngleStart(), attenuationDataset.getPathElevationAngleStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

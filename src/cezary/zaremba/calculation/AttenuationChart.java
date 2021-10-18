@@ -20,7 +20,7 @@ public class AttenuationChart extends ChartDrawer {
     private double rainRateStart = 1;
     private double rainRateStop = 200;
     private double pathElevationAngle = 10;
-    private double pathElevationAngleStart = 1;
+    private double pathElevationAngleStart = 5;
     private double pathElevationAngleStop = 90;
     private double polarizationTiltAngle = 45;
     private double polarizationTiltAngleStart = 0;
@@ -136,5 +136,37 @@ public class AttenuationChart extends ChartDrawer {
 
     public void setStep(double step) {
         this.step = step;
+    }
+
+    public double getRainRateStart() {
+        return rainRateStart;
+    }
+
+    public double getRainRateStop() {
+        return rainRateStop;
+    }
+
+    public double getPathElevationAngleStart() {
+        return pathElevationAngleStart;
+    }
+
+    public double getPathElevationAngleStop() {
+        return pathElevationAngleStop;
+    }
+
+    public double getPolarizationTiltAngleStart() {
+        return polarizationTiltAngleStart;
+    }
+
+    public double getPolarizationTiltAngleStop() {
+        return polarizationTiltAngleStop;
+    }
+
+    public double getFreqStart() {
+        return freqStart;
+    }
+
+    public double getFreqStop() {
+        return freqStop;
     }
 }

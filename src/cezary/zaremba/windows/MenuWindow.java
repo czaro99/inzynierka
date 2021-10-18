@@ -41,7 +41,7 @@ public class MenuWindow extends JFrame {
             }
         });
 
-        JButton elevationButtonRate = new JButton(new AbstractAction("kąta elewacji") {
+        JButton elevationButtonRate = new JButton(new AbstractAction("kąta elewacji trajektorii fali radiowej") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChartElevationRateWindow chartElevationRateWindow = new ChartElevationRateWindow();
@@ -49,7 +49,7 @@ public class MenuWindow extends JFrame {
             }
         });
 
-        JButton elevationButton = new JButton(new AbstractAction("kąta elewacji") {
+        JButton elevationButton = new JButton(new AbstractAction("kąta elewacji trajektorii fali radiowej") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChartElevationAttenuationWindow chartElevationAttenuationWindow = new ChartElevationAttenuationWindow();
@@ -73,10 +73,27 @@ public class MenuWindow extends JFrame {
             }
         });
 
+        JButton freqButtonCoefficientAlfa = new JButton(new AbstractAction("alfa w funkcji częstotliwości") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CoefficientAlfaFreqWindow coefficientAlfaFreqWindow = new CoefficientAlfaFreqWindow();
+                dispose();
+            }
+        });
+
+        JButton freqButtonCoefficientK = new JButton(new AbstractAction("k w funkcji częstotliwości") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CoefficientKFreqWindow coefficientKFreqWindow = new CoefficientKFreqWindow();
+                dispose();
+            }
+        });
+
         JLabel labelPlotRate = new JLabel("Tłumienie jednostkowe w funkcji:");
         JLabel labelPlot = new JLabel("Tłumienie w funkcji:");
+        JLabel labelPlotCoeff = new JLabel("Współczynnik:");
 
-        setLayout(new GridLayout(2, 5));
+        setLayout(new GridLayout(3, 5));
 
 
         add(labelPlotRate);
@@ -89,6 +106,11 @@ public class MenuWindow extends JFrame {
         add(rainButton);
         add(elevationButton);
         add(polarizationButton);
+        add(labelPlotCoeff);
+        add(freqButtonCoefficientAlfa);
+        add(freqButtonCoefficientK);
+        add(new JLabel());
+        add(new JLabel());
 
 
         pack();

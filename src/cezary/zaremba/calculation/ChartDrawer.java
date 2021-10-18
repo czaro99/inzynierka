@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class ChartDrawer {
 
-    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, XYDataset dataset) throws IOException {
+    public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, XYDataset dataset, double start, double stop) throws IOException {
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
                 chartTitle,
                 xLabel,
@@ -21,10 +21,14 @@ public class ChartDrawer {
                 PlotOrientation.VERTICAL,
                 true, false, false);
         final XYPlot plot = xylineChart.getXYPlot();
-        plot.setBackgroundPaint(new Color(191, 191, 191));
+        plot.setBackgroundPaint(new Color(255,255,255));
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true, false);
+        plot.setRangeGridlinePaint(new Color(0,0,0));
+        plot.setDomainGridlinePaint(Color.BLACK);
         renderer.setSeriesPaint(0, Color.BLACK);
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+        renderer.setDefaultSeriesVisibleInLegend(false);
+        plot.getDomainAxis().setRange(start,stop);
         plot.setRenderer(renderer);
         return xylineChart;
     }
