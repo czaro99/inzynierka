@@ -1,6 +1,6 @@
-package cezary.zaremba;
+package cezary.zaremba.projekt.inzynierski;
 
-import cezary.zaremba.windows.MenuWindow;
+import cezary.zaremba.projekt.inzynierski.windows.MenuWindow;
 
 import java.awt.*;
 

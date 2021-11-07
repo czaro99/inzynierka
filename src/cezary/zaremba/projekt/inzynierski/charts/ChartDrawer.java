@@ -1,4 +1,4 @@
-package cezary.zaremba.calculation;
+package cezary.zaremba.projekt.inzynierski.charts;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -10,7 +10,7 @@ import org.jfree.data.xy.XYDataset;
 import java.awt.*;
 import java.io.IOException;
 
-public class ChartDrawer {
+public abstract class ChartDrawer {
 
     public JFreeChart runGraph(String chartTitle, String xLabel, String yLabel, XYDataset dataset, double start, double stop) throws IOException {
         JFreeChart xylineChart = ChartFactory.createXYLineChart(
@@ -30,6 +30,9 @@ public class ChartDrawer {
         renderer.setDefaultSeriesVisibleInLegend(false);
         plot.getDomainAxis().setRange(start,stop);
         plot.setRenderer(renderer);
+        Font font = new Font("Dialog",Font.PLAIN, 25);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
         return xylineChart;
     }
 }

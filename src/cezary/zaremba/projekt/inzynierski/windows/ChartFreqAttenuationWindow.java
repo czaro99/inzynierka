@@ -1,7 +1,7 @@
-package cezary.zaremba.windows;
+package cezary.zaremba.projekt.inzynierski.windows;
 
-import cezary.zaremba.calculation.AttenuationChart;
-import cezary.zaremba.model.ChartType;
+import cezary.zaremba.projekt.inzynierski.charts.AttenuationChart;
+import cezary.zaremba.projekt.inzynierski.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package cezary.zaremba.windows;
+package cezary.zaremba.projekt.inzynierski.windows;
 
 import javax.swing.*;
 import java.awt.*;

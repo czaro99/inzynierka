@@ -1,8 +1,7 @@
-package cezary.zaremba.windows;
+package cezary.zaremba.projekt.inzynierski.windows;
 
-import cezary.zaremba.calculation.AttenuationRateChart;
-import cezary.zaremba.calculation.CoefficientsChart;
-import cezary.zaremba.model.ChartType;
+import cezary.zaremba.projekt.inzynierski.charts.AttenuationRateChart;
+import cezary.zaremba.projekt.inzynierski.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -10,23 +9,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class CoefficientAlfaFreqWindow extends JFrame {
+public class ChartFreqRateWindow extends JFrame {
 
-    private final CoefficientsChart coefficientsChart = new CoefficientsChart();
+    private final AttenuationRateChart attenuationDataset = new AttenuationRateChart();
 
-    public CoefficientAlfaFreqWindow() {
+    public ChartFreqRateWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
         chartPanel.setMouseWheelEnabled(true);
 
         JPanel p1 = new JPanel();
+        SpinnerModel modelRainRate = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
         SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
         SpinnerModel modelFreqStart = new SpinnerNumberModel(1, 1, 1000, 0.1);
         SpinnerModel modelFreqStop = new SpinnerNumberModel(300, 1, 1000, 0.1);
         SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
-
+        JSpinner spinnerRainRate = new JSpinner(modelRainRate);
+        JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
         JSpinner spinnerpathElevationAngle = new JSpinner(modelPathElevationAngle);
         JLabel labelpathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
         JSpinner spinnerpolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
@@ -37,7 +38,8 @@ public class CoefficientAlfaFreqWindow extends JFrame {
         JLabel labelfreqStop = new JLabel("Max. częstotliwość [GHz]:");
         JSpinner spinnerStep = new JSpinner(modelStep);
         JLabel labelStep = new JLabel("Krok:");
-
+        p1.add(labelRainRate);
+        p1.add(spinnerRainRate);
         p1.add(labelpathElevationAngle);
         p1.add(spinnerpathElevationAngle);
         p1.add(labelpolarizationTiltAngle);
@@ -49,27 +51,31 @@ public class CoefficientAlfaFreqWindow extends JFrame {
         p1.add(labelStep);
         p1.add(spinnerStep);
 
+        modelRainRate.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerRainRate.getValue().toString());
+            attenuationDataset.setRainRate(val);
+        });
 
         modelPathElevationAngle.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerpathElevationAngle.getValue().toString());
-            coefficientsChart.setPathElevationAngle(val);
+            attenuationDataset.setPathElevationAngle(val);
         });
         modelPolarizationTiltAngle.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerpolarizationTiltAngle.getValue().toString());
-            coefficientsChart.setPolarizationTiltAngle(val);
+            attenuationDataset.setPolarizationTiltAngle(val);
         });
         modelFreqStart.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerfreqStart.getValue().toString());
-            coefficientsChart.setFreqStart(val);
+            attenuationDataset.setFreqStart(val);
         });
         modelFreqStop.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerfreqStop.getValue().toString());
-            coefficientsChart.setFreqStop(val);
+            attenuationDataset.setFreqStop(val);
         });
 
         modelStep.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerStep.getValue().toString());
-            coefficientsChart.setStep(val);
+            attenuationDataset.setStep(val);
         });
 
 
@@ -80,7 +86,7 @@ public class CoefficientAlfaFreqWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Intensywność alfa", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.ALFA), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
+                            attenuationDataset.runGraph("", "Częstotliwość [GHz]", "Tłumienie jednostkowe [dB/km]", attenuationDataset.createDataset(ChartType.FREQUENCY), attenuationDataset.getFreqStart(), attenuationDataset.getFreqStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

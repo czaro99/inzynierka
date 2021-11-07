@@ -1,4 +1,4 @@
-package cezary.zaremba.file;
+package cezary.zaremba.projekt.inzynierski.file;
 
 import java.io.*;
 import java.util.List;

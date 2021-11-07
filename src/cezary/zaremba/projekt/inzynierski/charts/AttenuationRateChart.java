@@ -1,8 +1,9 @@
-package cezary.zaremba.calculation;
+package cezary.zaremba.projekt.inzynierski.charts;
 
-import cezary.zaremba.file.FileManager;
-import cezary.zaremba.model.ChartType;
-import cezary.zaremba.model.Coefficients;
+import cezary.zaremba.projekt.inzynierski.calculation.CoefficientsCalculation;
+import cezary.zaremba.projekt.inzynierski.file.FileManager;
+import cezary.zaremba.projekt.inzynierski.model.ChartType;
+import cezary.zaremba.projekt.inzynierski.model.Coefficients;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -11,9 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoefficientsChart extends ChartDrawer{
+public class AttenuationRateChart extends ChartDrawer {
 
 
+    private double rainRate = 5;
+    private double rainRateStart = 1;
+    private double rainRateStop = 200;
     private double pathElevationAngle = 10;
     private double pathElevationAngleStart = 5;
     private double pathElevationAngleStop = 90;
@@ -27,8 +31,8 @@ public class CoefficientsChart extends ChartDrawer{
     private double step = 1;
 
 
-    public XYDataset createDataset(String type, String coefficient) throws IOException {
-        final XYSeries attenuationSeries = new XYSeries("Coefficient");
+    public XYDataset createDataset(String type) throws IOException {
+        final XYSeries attenuationSeries = new XYSeries("Attenuation");
 
         CoefficientsCalculation coefficientsCalculation = new CoefficientsCalculation();
         List<String[]> results = new ArrayList<>();
@@ -36,55 +40,52 @@ public class CoefficientsChart extends ChartDrawer{
             case ChartType.FREQUENCY:
                 for (double i = freqStart; i <= freqStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(i, pathElevationAngle, polarizationTiltAngle);
-                    if(coefficient.equals(ChartType.ALFA)){
-                        attenuationSeries.add(i, coefficients.getAlfa());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getAlfa())});
-                    }
-                    else{
-                        attenuationSeries.add(i, coefficients.getK());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getK())});
-                    }
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
+                }
 
+                break;
+            case ChartType.RAIN_RATE:
+                for (double i = rainRateStart; i <= rainRateStop; i += step) {
+                    Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, polarizationTiltAngle);
+                    double attenuation = coefficients.getK() * Math.pow(i, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
             case ChartType.ELEVATION:
                 for (double i = pathElevationAngleStart; i <= pathElevationAngleStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, i, polarizationTiltAngle);
-                    if(coefficient.equals(ChartType.ALFA)){
-                        attenuationSeries.add(i, coefficients.getAlfa());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getAlfa())});
-                    }
-                    else{
-                        attenuationSeries.add(i, coefficients.getK());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getK())});
-                    }
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
             case ChartType.POLARIZATION:
                 for (double i = polarizationTiltAngleStart; i <= polarizationTiltAngleStop; i += step) {
                     Coefficients coefficients = coefficientsCalculation.calculateCoefficients(freq, pathElevationAngle, i);
-                    if(coefficient.equals(ChartType.ALFA)){
-                        attenuationSeries.add(i, coefficients.getAlfa());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getAlfa())});
-                    }
-                    else{
-                        attenuationSeries.add(i, coefficients.getK());
-                        results.add(new String[]{String.valueOf(i), String.valueOf(coefficients.getK())});
-                    }
+                    double attenuation = coefficients.getK() * Math.pow(rainRate, coefficients.getAlfa());
+                    attenuationSeries.add(i, attenuation);
+                    results.add(new String[]{String.valueOf(i), String.valueOf(attenuation)});
                 }
                 break;
             default:
                 break;
+
         }
         fileManager.writeToCSV(results);
         results.clear();
+
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(attenuationSeries);
         return dataset;
     }
 
-
+    public void setRainRate(double rainRate) {
+        this.rainRate = rainRate;
+    }
 
     public void setPathElevationAngle(double pathElevationAngle) {
         this.pathElevationAngle = pathElevationAngle;
@@ -102,9 +103,18 @@ public class CoefficientsChart extends ChartDrawer{
         this.freqStop = freqStop;
     }
 
+    public void setRainRateStart(double rainRateStart) {
+        this.rainRateStart = rainRateStart;
+    }
+
+    public void setRainRateStop(double rainRateStop) {
+        this.rainRateStop = rainRateStop;
+    }
+
     public void setFreq(double freq) {
         this.freq = freq;
     }
+
 
     public void setPathElevationAngleStart(double pathElevationAngleStart) {
         this.pathElevationAngleStart = pathElevationAngleStart;
@@ -121,12 +131,17 @@ public class CoefficientsChart extends ChartDrawer{
     public void setPolarizationTiltAngleStop(double polarizationTiltAngleStop) {
         this.polarizationTiltAngleStop = polarizationTiltAngleStop;
     }
-
-
     public void setStep(double step) {
         this.step = step;
     }
 
+    public double getRainRateStart() {
+        return rainRateStart;
+    }
+
+    public double getRainRateStop() {
+        return rainRateStop;
+    }
 
     public double getPathElevationAngleStart() {
         return pathElevationAngleStart;
@@ -144,6 +159,10 @@ public class CoefficientsChart extends ChartDrawer{
         return polarizationTiltAngleStop;
     }
 
+    public double getRainRate() {
+        return rainRate;
+    }
+
     public double getFreqStart() {
         return freqStart;
     }
@@ -151,5 +170,4 @@ public class CoefficientsChart extends ChartDrawer{
     public double getFreqStop() {
         return freqStop;
     }
-
 }

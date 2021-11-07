@@ -1,7 +1,7 @@
-package cezary.zaremba.windows;
+package cezary.zaremba.projekt.inzynierski.windows;
 
-import cezary.zaremba.calculation.AttenuationChart;
-import cezary.zaremba.model.ChartType;
+import cezary.zaremba.projekt.inzynierski.charts.AttenuationChart;
+import cezary.zaremba.projekt.inzynierski.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class ChartElevationAttenuationWindow extends JFrame {
+public class ChartPolarizationAttenuationWindow extends JFrame {
 
     private final AttenuationChart attenuationDataset = new AttenuationChart();
 
-    public ChartElevationAttenuationWindow() {
+    public ChartPolarizationAttenuationWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
@@ -23,9 +23,9 @@ public class ChartElevationAttenuationWindow extends JFrame {
         SpinnerModel modelRainLayerLength = new SpinnerNumberModel(1, 0.1, 100000, 0.1);
         SpinnerModel modelFreq = new SpinnerNumberModel(1, 0.1, 1000, 0.1);
         SpinnerModel modelRainRate = new SpinnerNumberModel(10, 0.1, 100, 0.1);
-        SpinnerModel modelPolarizationTiltAngle = new SpinnerNumberModel(45, 0, 90, 0.1);
-        SpinnerModel modelPathElevationAngleStart = new SpinnerNumberModel(5, 5, 90, 0.1);
-        SpinnerModel modelPathElevationAngleStop = new SpinnerNumberModel(90, 5, 90, 0.1);
+        SpinnerModel modelPathElevationAngle = new SpinnerNumberModel(10, 0, 90, 0.1);
+        SpinnerModel modelPolarizationTiltAngleStart = new SpinnerNumberModel(1, 0, 90, 0.1);
+        SpinnerModel modelPolarizationTiltAngleStop = new SpinnerNumberModel(90, 0, 90, 0.1);
         SpinnerModel modelStep = new SpinnerNumberModel(1, 0.1, 100, 0.1);
         JSpinner spinnerStep = new JSpinner(modelStep);
         JLabel labelStep = new JLabel("Krok:");
@@ -35,24 +35,25 @@ public class ChartElevationAttenuationWindow extends JFrame {
         JLabel labelFreq = new JLabel("Częstotliwość [GHz]:");
         JSpinner spinnerRainRate = new JSpinner(modelRainRate);
         JLabel labelRainRate = new JLabel("Intensywność opadów [mm/h]:");
-        JSpinner spinnerPolarizationTiltAngle = new JSpinner(modelPolarizationTiltAngle);
-        JLabel labelPolarizationTiltAngle = new JLabel("Kąt polaryzacji:");
-        JSpinner spinnerPathElevationAngleStart = new JSpinner(modelPathElevationAngleStart);
-        JLabel labelPathElevationAngleStart = new JLabel("Min. kąt elewacji trajektorii fali radiowej:");
-        JSpinner spinnerPathElevationAngleStop = new JSpinner(modelPathElevationAngleStop);
-        JLabel labelPathElevationAngleStop = new JLabel("Max. kąt elewacji trajektorii fali radiowej:");
+        JSpinner spinnerPathElevationAngle = new JSpinner(modelPathElevationAngle);
+        JLabel labelPathElevationAngle = new JLabel("Kąt elewacji trajektorii fali radiowej:");
+        JSpinner spinnerPolarizationTiltAngleStart = new JSpinner(modelPolarizationTiltAngleStart);
+        JLabel labelPolarizationTiltAngleStart = new JLabel("Min. kąt polaryzacji:");
+        JSpinner spinnerPolarizationTiltAngleStop = new JSpinner(modelPolarizationTiltAngleStop);
+        JLabel labelPolarizationTiltAngleStop = new JLabel("Max. kąt polaryzacji:");
+
         p1.add(labelRainLayerLength);
         p1.add(spinnerRainLayerLength);
         p1.add(labelFreq);
         p1.add(spinnerFreq);
         p1.add(labelRainRate);
         p1.add(spinnerRainRate);
-        p1.add(labelPolarizationTiltAngle);
-        p1.add(spinnerPolarizationTiltAngle);
-        p1.add(labelPathElevationAngleStart);
-        p1.add(spinnerPathElevationAngleStart);
-        p1.add(labelPathElevationAngleStop);
-        p1.add(spinnerPathElevationAngleStop);
+        p1.add(labelPathElevationAngle);
+        p1.add(spinnerPathElevationAngle);
+        p1.add(labelPolarizationTiltAngleStart);
+        p1.add(spinnerPolarizationTiltAngleStart);
+        p1.add(labelPolarizationTiltAngleStop);
+        p1.add(spinnerPolarizationTiltAngleStop);
         p1.add(labelStep);
         p1.add(spinnerStep);
 
@@ -70,19 +71,18 @@ public class ChartElevationAttenuationWindow extends JFrame {
             double val = Double.parseDouble(spinnerRainRate.getValue().toString());
             attenuationDataset.setRainRate(val);
         });
-        modelPolarizationTiltAngle.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerPolarizationTiltAngle.getValue().toString());
-            attenuationDataset.setPolarizationTiltAngle(val);
+        modelPathElevationAngle.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPathElevationAngle.getValue().toString());
+            attenuationDataset.setPathElevationAngle(val);
         });
-        modelPathElevationAngleStart.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerPathElevationAngleStart.getValue().toString());
-            attenuationDataset.setPathElevationAngleStart(val);
+        modelPolarizationTiltAngleStart.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngleStart.getValue().toString());
+            attenuationDataset.setPolarizationTiltAngleStart(val);
         });
-        modelPathElevationAngleStop.addChangeListener(e -> {
-            double val = Double.parseDouble(spinnerPathElevationAngleStop.getValue().toString());
-            attenuationDataset.setPathElevationAngleStop(val);
+        modelPolarizationTiltAngleStop.addChangeListener(e -> {
+            double val = Double.parseDouble(spinnerPolarizationTiltAngleStop.getValue().toString());
+            attenuationDataset.setPolarizationTiltAngleStop(val);
         });
-
         modelStep.addChangeListener(e -> {
             double val = Double.parseDouble(spinnerStep.getValue().toString());
             attenuationDataset.setStep(val);
@@ -96,7 +96,7 @@ public class ChartElevationAttenuationWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            attenuationDataset.runGraph("", "Kąt elewacji trajektorii fali radiowej", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.ELEVATION), attenuationDataset.getPathElevationAngleStart(), attenuationDataset.getPathElevationAngleStop()));
+                            attenuationDataset.runGraph("", "Kąt polaryzacji", "Tłumienie [dB]", attenuationDataset.createDataset(ChartType.POLARIZATION), attenuationDataset.getPolarizationTiltAngleStart(), attenuationDataset.getPolarizationTiltAngleStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

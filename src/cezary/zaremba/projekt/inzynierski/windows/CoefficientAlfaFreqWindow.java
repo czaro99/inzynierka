@@ -1,7 +1,7 @@
-package cezary.zaremba.windows;
+package cezary.zaremba.projekt.inzynierski.windows;
 
-import cezary.zaremba.calculation.CoefficientsChart;
-import cezary.zaremba.model.ChartType;
+import cezary.zaremba.projekt.inzynierski.charts.CoefficientsChart;
+import cezary.zaremba.projekt.inzynierski.model.ChartType;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class CoefficientKFreqWindow extends JFrame {
+public class CoefficientAlfaFreqWindow extends JFrame {
 
     private final CoefficientsChart coefficientsChart = new CoefficientsChart();
 
-    public CoefficientKFreqWindow() {
+    public CoefficientAlfaFreqWindow() {
         super("Projekt inżynierski");
 
         ChartPanel chartPanel = new ChartPanel(null);
@@ -79,7 +79,7 @@ public class CoefficientKFreqWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     chartPanel.setChart(
-                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Intensywność k", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.K), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
+                            coefficientsChart.runGraph("", "Częstotliwość [GHz]", "Współczynnik alfa", coefficientsChart.createDataset(ChartType.FREQUENCY, ChartType.ALFA), coefficientsChart.getFreqStart(), coefficientsChart.getFreqStop()));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

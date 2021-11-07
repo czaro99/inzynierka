@@ -1,6 +1,6 @@
-package cezary.zaremba.calculation;
+package cezary.zaremba.projekt.inzynierski.calculation;
 
-import cezary.zaremba.model.Coefficients;
+import cezary.zaremba.projekt.inzynierski.model.Coefficients;
 
 public class CoefficientsCalculation {
 

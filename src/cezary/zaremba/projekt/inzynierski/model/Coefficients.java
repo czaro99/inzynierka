@@ -1,4 +1,4 @@
-package cezary.zaremba.model;
+package cezary.zaremba.projekt.inzynierski.model;
 
 public class Coefficients {
     private double k;

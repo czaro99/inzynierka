@@ -1,4 +1,4 @@
-package cezary.zaremba.model;
+package cezary.zaremba.projekt.inzynierski.model;
 
 public class ChartType {
     public static final String ELEVATION = "Elevation";
